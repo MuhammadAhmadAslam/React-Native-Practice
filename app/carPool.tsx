@@ -2,10 +2,14 @@ import { Text, View, StyleSheet, TouchableOpacity, Image, Dimensions } from "rea
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useState } from "react";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Entypo from '@expo/vector-icons/Entypo';
+import { router } from "expo-router";
 export default function CarPool() {
     const [selected, setSelected] = useState('two');
 
     let screenHeight = Dimensions.get('window').height
+    let screenWidth = Dimensions.get('window').width
 
 
     const styles = StyleSheet.create({
@@ -67,11 +71,18 @@ export default function CarPool() {
             marginLeft: 2,
         },
         passengerContainer: {
-            height: screenHeight / 6,
-            borderTopWidth: 1,
-            borderBottomWidth: 1,
-            borderTopColor: '#E5E5E5',            
-            borderBottomColor: '#E5E5E5',            
+            height: screenHeight / 8,
+            borderTopWidth: 3,
+            borderBottomWidth: 3,
+            borderTopColor: '#E5E5E5',
+            borderBottomColor: '#E5E5E5',
+            flexDirection: "row",
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingVertical: 12,
+            paddingHorizontal: 16,
+            backgroundColor: '#fff',
+            flexWrap: "wrap",
         },
         locationContainer: {
             height: screenHeight / 4,
@@ -133,13 +144,109 @@ export default function CarPool() {
             fontSize: 13,
             fontWeight: '500',
         },
+        card: {
+            backgroundColor: '#f5f5f5',
+            borderRadius: 10,
+            padding: 10,
+            width: 70,
+            height: 70,
+            alignItems: 'center',
+            justifyContent: 'center',
+            elevation: 4,
+            shadowColor: '#000',
+        },
+        activeCard: {
+            backgroundColor: '#E6F5E9', // Highlighted card
+            borderColor: '#34C759',
+            borderWidth: 2,
+        },
+        image: {
+            width: 50,
+            height: 50,
+            resizeMode: 'contain',
+        },
+        acLabel: {
+            position: 'absolute',
+            top: 5,
+            right: 5,
+            backgroundColor: '#fff',
+            paddingHorizontal: 4,
+            paddingVertical: 2,
+            borderRadius: 4,
+            fontSize: 12,
+            fontWeight: 'bold',
+            color: '#000',
+        },
+        Vehiclecontainer: {
+            flexDirection: "row",
+            gap: 5,
+            justifyContent: "space-around",
+            marginHorizontal: 6,
+            marginTop: 10,
+            marginBottom: 10,
+        },
+        BottomContainer: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            backgroundColor: "#fff",
+            shadowColor: "#000",
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 4,
+            elevation: 4, // For Android shadow
+            borderRadius: 10,
+            height: screenHeight / 3.5, // Set a fixed height for consistency
+        },
+        leftSection: {
+            flex: 2,
+        },
+        box: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "flex-start",
+            borderRadius: 5,
+            marginBottom: 5, // Space between boxes
+        },
+        blackBox: {
+            backgroundColor: "#ccc",
+        },
+        redBox: {
+            backgroundColor: "#EAEAEA",
+        },
+        boxText: {
+            color: "#000",
+            textAlign: "left",
+            fontWeight: "bold",
+            fontSize: 16,
+            paddingLeft: 15,
+        },
+        bookNowButton: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#B9B9B9",
+            borderRadius: 10,
+            marginLeft: 10,
+            shadowColor: "#000",
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 4,
+            elevation: 4, // For Android shadow
+        },
+        buttonText: {
+            fontSize: 16,
+            fontWeight: "bold",
+            color: "#FFF",
+        },
     });
     return (
         <View style={styles.container}>
 
             {/* header starts here  */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.backButton}>
+                <TouchableOpacity style={styles.backButton} onPress={() => router.push("/")}>
                     <AntDesign name="left" size={24} color="#333" />
                 </TouchableOpacity>
 
@@ -249,20 +356,97 @@ export default function CarPool() {
 
 
             <View style={styles.passengerContainer}>
-
+                <Text>Passengers</Text>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingVertical: 10,
+                    paddingHorizontal: 10,
+                    backgroundColor: '#fff',
+                    shadowColor: "#000",
+                    elevation: 4,
+                    borderRadius: 10,
+                    gap: 3,
+                }}>
+                    <Entypo name="minus" size={screenWidth * 0.06} color="black" />
+                    <MaterialCommunityIcons name="human-male" size={screenWidth * 0.06} color="black" />
+                    <Entypo name="plus" size={screenWidth * 0.06} color="black" />
+                </View>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingVertical: 10,
+                    paddingHorizontal: 10,
+                    backgroundColor: '#fff',
+                    shadowColor: "#000",
+                    elevation: 4,
+                    borderRadius: 10,
+                    gap: 3,
+                }}>
+                    <Entypo name="minus" size={screenWidth * 0.06} color="black" />
+                    <MaterialCommunityIcons name="human-female" size={screenWidth * 0.06} color="black" />
+                    <Entypo name="plus" size={screenWidth * 0.06} color="black" />
+                </View>
             </View>
-
 
 
             <View>
 
+                <View style={styles.Vehiclecontainer}>
+                    {/* First Rickshaw */}
+                    <TouchableOpacity style={styles.card}>
+                        <Image
+                            source={{
+                                uri: "https://www.gari.pk/images/new/bikes/2022-09/359_1_97896.jpg",
+                            }}
+                            style={styles.image}
+                        />
+                    </TouchableOpacity>
+
+                    {/* Second Rickshaw */}
+                    <TouchableOpacity style={styles.card}>
+                        <Image
+                            source={{
+                                uri: "https://e7.pngegg.com/pngimages/329/828/png-clipart-2018-ford-focus-compact-car-ford-fiesta-ford-compact-car-car.png",
+                            }}
+                            style={styles.image}
+                        />
+                    </TouchableOpacity>
+
+                    {/* Third Rickshaw with AC Label */}
+                    <TouchableOpacity style={[styles.card, styles.activeCard]}>
+                        <Image
+                            source={{
+                                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqCA-L3w1cMxb7vCs3rVFgrMUYKchyUwSheY9_eEQq1D5HwoKHOVMSfev3N19HQGag62Y&usqp=CAU",
+                            }}
+                            style={styles.image}
+                        />
+                        <Text style={styles.acLabel}>AC</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            <View style={styles.BottomContainer}>
+                {/* Left Section */}
+                <View style={styles.leftSection}>
+                    <View style={[styles.box, styles.blackBox]}>
+                    </View>
+                    <View style={[styles.box, styles.redBox]}>
+                        <Text style={styles.boxText}>RS.</Text>
+                    </View>
+                    <View style={[styles.box, styles.blackBox]}>
+                    </View>
+                </View>
+
+                {/* Right Section (Button) */}
+                <TouchableOpacity style={styles.bookNowButton}>
+                    <AntDesign name="check" size={35} color="white" />
+                </TouchableOpacity>
             </View>
 
 
-
-            <View>
-
-            </View>
 
         </View>
     );

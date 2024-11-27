@@ -8,7 +8,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import { Link, router, useNavigation } from 'expo-router';
-
+import React from 'react';
 export default function Home() {
        const [loaded] = useFonts({
               SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
