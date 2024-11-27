@@ -23,10 +23,10 @@ export default function Home() {
                             path: "/carPool",
                      },
                      {
-                            title: "Ride",
-                            icon: <MaterialCommunityIcons name="bike" size={34} color="green" />,
+                            title: "Todo App",
+                            icon: <MaterialCommunityIcons name="checkbox-marked-circle-plus-outline" size={34} color="green" />,
                             backgroundColor: "#9BDCAB",
-                            path: "/",
+                            path: "/todoPage",
                      }
               ],
               [

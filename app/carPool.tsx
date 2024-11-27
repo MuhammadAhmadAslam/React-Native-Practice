@@ -243,7 +243,6 @@ export default function CarPool() {
     });
     return (
         <View style={styles.container}>
-
             {/* header starts here  */}
             <View style={styles.header}>
                 <TouchableOpacity style={styles.backButton} onPress={() => router.push("/")}>
