@@ -105,7 +105,7 @@
 //     );
 // }
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput, FlatList, Dimensions } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -114,42 +114,102 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { router } from "expo-router";
 
 export default function TodoPage() {
+    interface Todo {
+        id: string;
+        todo: string;
+    }
 
+    const [todos, setTodos] = useState<Todo[]>([]);
+    let [loading, setLoading] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        let fetchData = async () => {
+            try {
+                const response = await fetch("https://todo-app-next-js-two.vercel.app/api/todo");
+                const data = await response.json();
+                console.log(data, "todo comed");
+                setTodos(data);
+                setLoading(false)
+            } catch (error) {
+                console.log(error);
+                setLoading(false)
+                return (
+                    <View style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <Text style={{ fontSize: 20 }}>Something Went Wrong</Text>
+                    </View>
+                )
+            }
+        }
+        fetchData()
+    }, [])
     // State for holding the todos
-    const [todos, setTodos] = useState([
-        { id: "1", todo: "Buy Milk" },
-        { id: "2", todo: "Buy Grocery" },
-        { id: "3", todo: "Buy Milk" },
-        { id: "4", todo: "Buy Grocery" },
-        { id: "5", todo: "Buy Milk" },
-        { id: "6", todo: "Buy Grocery" },
-        { id: "7", todo: "Buy Milk" },
-        { id: "8", todo: "Buy Grocery" },
-        { id: "9", todo: "Buy Milk" },
-        { id: "10", todo: "Buy Grocery" },
-        { id: "11", todo: "Buy Milk" },
-        { id: "12", todo: "Buy Grocery" },
-        { id: "13", todo: "Buy Milk" },
-        { id: "14", todo: "Buy Grocery" },
-        { id: "15", todo: "Buy Milk" },
-        { id: "16", todo: "Buy Grocery" },
-        { id: "17", todo: "Buy Milk" },
-        { id: "18", todo: "Buy Grocery" },
-    ]);
+    // const [todos, setTodos] = useState([
+    //     { id: "1", todo: "Buy Milk" },
+    //     { id: "2", todo: "Buy Grocery" },
+    //     { id: "3", todo: "Buy Milk" },
+    //     { id: "4", todo: "Buy Grocery" },
+    //     { id: "5", todo: "Buy Milk" },
+    //     { id: "6", todo: "Buy Grocery" },
+    //     { id: "7", todo: "Buy Milk" },
+    //     { id: "8", todo: "Buy Grocery" },
+    //     { id: "9", todo: "Buy Milk" },
+    //     { id: "10", todo: "Buy Grocery" },
+    //     { id: "11", todo: "Buy Milk" },
+    //     { id: "12", todo: "Buy Grocery" },
+    //     { id: "13", todo: "Buy Milk" },
+    //     { id: "14", todo: "Buy Grocery" },
+    //     { id: "15", todo: "Buy Milk" },
+    //     { id: "16", todo: "Buy Grocery" },
+    //     { id: "17", todo: "Buy Milk" },
+    //     { id: "18", todo: "Buy Grocery" },
+    // ]);
 
     // State for the new todo input
     const [newTodo, setNewTodo] = useState("");
 
     // Add new todo function
-    const addTodo = () => {
-        if (newTodo.trim()) {
-            setTodos((prevTodos) => [
-                ...prevTodos,
-                { id: (prevTodos.length + 1).toString(), todo: newTodo },
-            ]);
-            setNewTodo(""); // Clear the input after adding
+    // const addTodo = () => {
+    //     if (newTodo.trim()) {
+    //         setTodos((prevTodos) => [
+    //             ...prevTodos,
+    //             { todo: newTodo },
+    //         ]);
+    //         setNewTodo(""); // Clear the input after adding
+    //     }
+    // };
+
+    let addTodo = async () => {
+        if (newTodo) {
+            let response = await fetch("https://todo-app-next-js-two.vercel.app/api/todo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    todo: newTodo
+                })
+            })
+            if (!response.ok) {
+                throw new Error("Failed to add todo");
+            }
+
+            // Parse the response JSON
+            const newAddedTodo = await response.json();
+
+            // Update state with the new todo
+            let obj = {
+                todo: newTodo
+            }
+            setTodos((prevTodos) => [...prevTodos, obj]);
+
+            // Clear the input field after adding the todo
+            setNewTodo("");
         }
-    };
+    }
 
     return (
         <View style={styles.container}>
@@ -172,22 +232,32 @@ export default function TodoPage() {
             </View>
 
             {/* Todo List Section */}
-            <FlatList
-                data={todos}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={styles.todoItem}>
-                        <MaterialCommunityIcons
-                            name="checkbox-marked-circle"
-                            size={24}
-                            color="green"
-                        />
-                        <Text style={styles.todoText}>{item.todo}</Text>
-                    </View>
-                )}
-                // Ensuring the list is scrollable
-                style={styles.todoList}
-            />
+            {loading ?
+                <View style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Text style={{ fontSize: 20 }}>Loading...</Text>
+                </View>
+                :
+                <FlatList
+                    data={todos}
+                    keyExtractor={(item, index) => index}
+                    renderItem={({ item }) => (
+                        <View style={styles.todoItem}>
+                            <MaterialCommunityIcons
+                                name="checkbox-marked-circle"
+                                size={24}
+                                color="green"
+                            />
+                            <Text style={styles.todoText}>{item.todo}</Text>
+                        </View>
+                    )}
+                    // Ensuring the list is scrollable
+                    style={styles.todoList}
+                />
+            }
         </View>
     );
 }
