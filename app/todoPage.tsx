@@ -210,6 +210,7 @@ export default function TodoPage() {
             setNewTodo("");
         }
     }
+    //todo complete
 
     return (
         <View style={styles.container}>
