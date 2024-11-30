@@ -2,7 +2,7 @@ import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Text, View, StyleSheet, Image, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions, SafeAreaView, TouchableOpacity , Pressable} from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -128,7 +128,7 @@ export default function Home() {
                                           alignItems: "center", paddingHorizontal: 16, gap: 8
                                    }}>
                                           {cardRow.map((card, cardIndex) => (
-                                                 <Link href={`${card.path}`} key={cardIndex} style={{
+                                                 <Pressable onPress={() => { router.push(card.path) }} key={cardIndex} style={{
                                                         flex: 1, paddingHorizontal: 16, paddingVertical: 10, backgroundColor: card.backgroundColor,
                                                         borderRadius: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 2 },
                                                         shadowOpacity: 0.25, shadowRadius: 3.84, elevation: 7, height: "90%",
@@ -144,7 +144,7 @@ export default function Home() {
                                                                {card.icon}
                                                         </View>
 
-                                                 </Link>
+                                                 </Pressable>
                                           ))}
                                    </View>
                             ))}
