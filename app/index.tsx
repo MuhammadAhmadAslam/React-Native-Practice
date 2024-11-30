@@ -34,7 +34,7 @@ export default function Home() {
                             title: "Delivery",
                             icon: <MaterialCommunityIcons name="truck-fast-outline" size={34} color="green" />,
                             backgroundColor: "#DACEBF",
-                            path: "/",
+                            path: "/home",
                      },
                      {
                             title: "Mobiles",

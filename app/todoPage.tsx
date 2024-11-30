@@ -147,26 +147,7 @@ export default function TodoPage() {
         fetchData()
     }, [])
     // State for holding the todos
-    // const [todos, setTodos] = useState([
-    //     { id: "1", todo: "Buy Milk" },
-    //     { id: "2", todo: "Buy Grocery" },
-    //     { id: "3", todo: "Buy Milk" },
-    //     { id: "4", todo: "Buy Grocery" },
-    //     { id: "5", todo: "Buy Milk" },
-    //     { id: "6", todo: "Buy Grocery" },
-    //     { id: "7", todo: "Buy Milk" },
-    //     { id: "8", todo: "Buy Grocery" },
-    //     { id: "9", todo: "Buy Milk" },
-    //     { id: "10", todo: "Buy Grocery" },
-    //     { id: "11", todo: "Buy Milk" },
-    //     { id: "12", todo: "Buy Grocery" },
-    //     { id: "13", todo: "Buy Milk" },
-    //     { id: "14", todo: "Buy Grocery" },
-    //     { id: "15", todo: "Buy Milk" },
-    //     { id: "16", todo: "Buy Grocery" },
-    //     { id: "17", todo: "Buy Milk" },
-    //     { id: "18", todo: "Buy Grocery" },
-    // ]);
+    
 
     // State for the new todo input
     const [newTodo, setNewTodo] = useState("");
@@ -216,6 +197,7 @@ export default function TodoPage() {
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
+                <AntDesign name="back" size={24} color="black" onPress={() => router.back()}/>
                 <Text style={styles.headerText}>React Native Todo Application</Text>
             </View>
 
@@ -275,7 +257,10 @@ const styles = StyleSheet.create({
         marginTop: 4,
         borderBottomColor: "green",
         borderBottomWidth: 1,
-        paddingHorizontal: 16,
+        paddingHorizontal: 5,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 5,
     },
     headerText: {
         textAlign: "center",
