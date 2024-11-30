@@ -23,7 +23,7 @@ export default function TabLayout() {
       />
 
       {/* Todo Tab */}
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="todoPage" // Matches todoPage.tsx
         options={{
           title: "Todo",
@@ -31,10 +31,10 @@ export default function TabLayout() {
             <AntDesign name="user" size={24} color="black" />
           ),
         }}
-      />
+      /> */}
 
       {/* Settings Tab */}
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",
@@ -42,7 +42,7 @@ export default function TabLayout() {
             <FontAwesome size={28} name="cog" color={color} />
           ),
         }}
-      />
+      /> */}
     </Tabs>
   );
 }
