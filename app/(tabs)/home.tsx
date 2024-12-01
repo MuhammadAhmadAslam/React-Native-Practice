@@ -37,6 +37,8 @@ export default  function Home() {
     }
   }
   
+
+  //gitub push
   return (
     <View>
       <View style={{ height: 50, justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 2, borderBottomColor: "green", flexDirection: "row", paddingHorizontal: 16, }}>
