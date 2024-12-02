@@ -23,15 +23,15 @@ export default function TabLayout() {
       />
 
       {/* Todo Tab */}
-      {/* <Tabs.Screen
-        name="todoPage" // Matches todoPage.tsx
+      <Tabs.Screen
+        name="todoPage" 
         options={{
           title: "Todo",
           tabBarIcon: ({ color }) => (
             <AntDesign name="user" size={24} color="black" />
           ),
         }}
-      /> */}
+      />
 
       {/* Settings Tab */}
       {/* <Tabs.Screen
